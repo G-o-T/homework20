@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+<body>
+    <main class="dashboard">
+        <div class="dashboard__date">
+            <h1 class="h1">Статистика по юридическому отделу</h1>
+            <div class="date">
+                <h4 class="h4">Дата формирования отчета</h4>
+                <h4 class="date-field"></h4>
+            </div>
+        </div>
+        <div class="dashboard__charts charts">
+            <div class="charts__row charts__row_common">
+                <h2 class="chart__label chart__label_common">Статистика выполнения задач</h2>
+                <div class="charts__content">
+                    <div class="chart chart_l">
+                        <h2 class="chart__label">Ивановым И.И.</h2>
+                        <div class="ct-chart-user1 ct-perfect-fourth"></div>
+                    </div>
+                    <div class="chart chart_l">
+                        <h2 class="chart__label">Константинопольским К.К.</h2>
+                        <div class="ct-chart-user2 ct-perfect-fourth"></div>
+                    </div>
+                    <div class="chart legend">
+                        <div class="legend__colors">
+                            <div class="color color_dark">Задача выполнена</div>
+                            <div class="color color_light">Задача не выполнена</div>
+                        </div>
+                        <div class="legend__fields">
+                            <ul class="legend__items">
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="charts__row charts__row_alone">
+                <div class="chart chart_s">
+                    <h2 class="chart__label">Общее количество задач</h2>
+                    <canvas id="сhart-all-tasks" class="chart__body"></canvas>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
+    <script src="chart.js"></script>
+    <script src="bundle.js"></script>    
+</body>
+</html>

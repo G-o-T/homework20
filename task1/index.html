@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+<body>
+    
+        <header class="header">
+            <div class="container">
+                <h1 class="h1">Welcome to the Star Wars universe!</h1>
+                <p class="desc">Here you can see information about planets, starships and other vehicles.</p>
+            </div>
+        </header>
+        <main>
+            <div class="container">
+                <div class="search">
+                    <h2 class="h2">What are you interested in?</h2>
+                    <form class="form" name="form">
+                        <div class="form__inputs">
+                            <select class="form__input search-item" name="search" id="search-item">
+                                <option value="default" selected="true" disabled="disabled">What are you looking for</option>
+                                <option value="planets">Planets</option>
+                                <option value="starships">Starships</option>
+                                <option value="vehicles">Other vehicles</option>
+                            </select>
+                            <input type="number" class="form__input" name="number" placeholder="Which one is from 1 to 10 inclusive" min="1" step="1">
+                            <button class="form__btn btn-search">Search</button>
+                            <button class="form__btn btn-clean inert">Clear</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="loader inert">
+                    <div class="t2"></div>
+                    <div class="t3"></div>
+                    <div class="t4"></div>
+                    <div class="t5"></div>
+                </div>
+                <div class="result"></div>
+                <div class="errors"></div>
+            </div>
+        </main>
+        <script src="main.js"></script>
+</body>
+</html>

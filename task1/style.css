@@ -1,0 +1,158 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+body {
+    background-color: #07303d;
+    color: #46c2f3;
+    font-family: 'Nunito Sans', sans-serif;
+}
+
+.container {
+    max-width: 1170px;
+    margin: 0 auto;
+}
+
+.header {
+    background-image: url(./[CITYPNG.COM]Neon\ Blue\ Logo\ Star\ Wars\ HD\ PNG\ -\ 3636x1916.png);
+    background-size: 20%;
+    background-repeat: no-repeat;
+    padding: 56px;
+    
+}
+
+.h1 {
+    font-size: 38px;
+}
+
+desc {
+    font-size: 20px;
+    padding-top: 12px;
+}
+
+.form__inputs {
+    display: flex;
+    gap: 16px;
+    padding-top: 28px;
+}
+
+.form__input {
+    width: 33%;
+    border: 1px solid #46c2f3;
+    background-color: #07303d;
+    color: #46c2f3;
+    padding: 8px;
+    border-radius: 8px;
+}
+
+.form__input::placeholder {
+    color: #46c2f3;
+    padding: 8px;
+}
+
+.form__btn {
+    color: #46c2f3;
+    background-color: #07303d;
+    width: 30%;
+    border: 1px solid #46c2f3;
+    font-weight: 700;
+    border-radius: 8px;
+    padding: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.form__btn:hover {
+    color: #07303d;
+    background-color: #46c2f3;
+}
+
+.result {
+    display: flex;
+    flex-direction: column;
+    gap:32px;
+    margin-top: 80px;
+}
+
+.result__field {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.result__title {
+    font-weight: 200;
+    font-size: 18px;
+}
+
+.result__text {  
+    font-size: 22px;
+}
+
+.loader{
+    display: block;
+    height: 100px;
+	width: 200px;
+	position: absolute;
+	margin: auto;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+}
+
+.inert {
+    display: none;
+}
+
+.t,.t2,.t3,.t4,.t5{
+	height: 0;
+	width: 0;
+	border-bottom: 100px solid #4968fc;
+	border-left: 20px solid transparent;
+	border-right: 20px solid transparent;
+	position: relative;
+	animation: load 1s linear infinite;
+	transform-origin: bottom;
+}
+
+@keyframes load{
+    50%{
+        transform: scaleY(0);
+    }
+}
+
+.t2{
+    border-bottom: 50px solid #46c2f3;
+    bottom: 50px;
+    left: 40px;
+    animation-delay: 0.1s;
+}
+
+.t3{
+    border-bottom: 50px solid #63cbf5;
+    bottom: 100px;
+    left: 80px;
+    animation-delay: 0.2s;
+}
+
+.t4{
+    border-bottom: 50px solid #8cd8f7;
+    bottom: 150px;
+    left: 120px;
+    animation-delay: 0.3s;
+}
+
+.t5{
+    border-bottom: 50px solid #c1ebfc;
+    bottom: 200px;
+    left: 160px;
+    animation-delay: 0.4s;
+} 
+
+.error {
+    color: #ec1d8f;
+}
