@@ -35,7 +35,7 @@ body {
     padding: 5vh 3vw;
     background-color: #F8F8F8;
     color: #444D67;
-    gap: 5vw;
+    gap: 3vw;
 }
 
 .h1 {
@@ -62,7 +62,7 @@ body {
 
 .charts__row {
     display: flex;
-    gap: 3vw;
+    gap: 12vw;
 }
 
 .ct-chart {
@@ -135,4 +135,8 @@ body {
 .chart__label_common {
     display: flex;
     margin-left: 16vw;
+}
+
+.chart_h {
+    width: 30vw;
 }

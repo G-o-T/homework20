@@ -202,79 +202,6 @@ const abb = ['Иск', 'Суд', 'Претензия', 'Поставка', 'Ар
 // const dataJSON = JSON.stringify(dataJson);
 // const data = JSON.parse(dataJSON);
 
-//Блок кода для подсчета данных по видам задач: количество и исполнитель
-
-window.addEventListener('DOMContentLoaded', () => {
-  createLegend();
-  new Chartist.Bar('.ct-chart-user1', data1, options, responsiveOptions);
-  new Chartist.Bar('.ct-chart-user2', data2, options, responsiveOptions);
-});
-
-//Функция получает виды задач
-function getTasksNames(data) {
-  let tasksNames = [];
-  for (let i = 0; i < data.length; i++) {
-    tasksNames.push(data[i].title)
-  }
-  return [...new Set(tasksNames)];
-}
-
-let chartDataTasksNames = getTasksNames(dataJson);
-console.log(chartDataTasksNames);
-
-//Функция вносит виды задач в легенду
-function createLegendItem(field, abb) {
-  const legend = document.querySelector('.legend__items');
-  const legendItem = document.createElement('li');
-  legendItem.classList = 'legend__item';
-  legendItem.innerHTML = `<b>${abb}</b> - ${field}`;
-  legend.append(legendItem);
-}
-
-//Функция заполняет легенду
-function createLegend() {
-  for (let i = 0; i < chartDataTasksNames.length; i++) {
-    createLegendItem(chartDataTasksNames[i], abb[i]);
-  };
-}
-
-//Код собирает данные для статистики по задачам
-
-// function getTaskStatistics(elem, data) {
-//     let taskInfo = {
-//       taskCompleded : 0,
-//       taskFailed : 0,
-//     }
-
-//     if (elem == data.title) {
-//       data.completed ? taskInfo.taskCompleded++ : taskInfo.taskFailed++;
-//     }
-//     return taskInfo;
-// }
-
-// console.log(getTaskStatistics(chartDataTasksNames[0], dataJson[0]))
-
-// function getTasksStatistics(tasksNames, data, userId) {
-//     let tasksInfo = [];
-//     tasksNames.forEach(el => {
-//       if (data.userId == userId) {
-//         tasksInfo.push(getTaskStatistics(el, data));
-//       }
-//     })
-//     return tasksInfo;
-// }
-
-// console.log(getTasksStatistics(chartDataTasksNames, dataJson[1], 1))
-
-// function createChartDataUserTasksStatistics(data, usersId) {
-//   let userTasksStatistics = [];
-//   usersId.forEach(el => {
-//     userTasksStatistics.push(getTasksStatistics(chartDataTasksNames, dataJson, el))
-// });
-//   return userTasksStatistics;
-// }
-
-
 //Блок кода для диаграммы, показывающей количество всех задач у каждого юриста
 function getNumberOfAllTasks(data, userId) {
   let numberOfAllTasks = 0; 
@@ -296,7 +223,87 @@ function createChartDataNumberOfAllTasks(data, usersId) {
 
 let chartDataNumberOfAllTasks = createChartDataNumberOfAllTasks(dataJson, usersId);
 
+//Блок кода для подсчета данных по видам задач: количество и исполнитель
 
+window.addEventListener('DOMContentLoaded', () => {
+  createLegend();
+  new Chartist.Bar('.ct-chart-user1', data1, options, responsiveOptions);
+  new Chartist.Bar('.ct-chart-user2', data2, options, responsiveOptions);
+});
+
+//Функция получает виды задач
+function getTasksNames(data) {
+  let tasksNames = [];
+  for (let i = 0; i < data.length; i++) {
+    tasksNames.push(data[i].title)
+  }
+  return [...new Set(tasksNames)];
+}
+
+let chartDataTasksNames = getTasksNames(dataJson);
+
+//Функция вносит виды задач в легенду
+function createLegendItem(field, abb) {
+  const legend = document.querySelector('.legend__items');
+  const legendItem = document.createElement('li');
+  legendItem.classList = 'legend__item';
+  legendItem.innerHTML = `<b>${abb}</b> - ${field}`;
+  legend.append(legendItem);
+}
+
+//Функция заполняет легенду
+function createLegend() {
+  for (let i = 0; i < chartDataTasksNames.length; i++) {
+    createLegendItem(chartDataTasksNames[i], abb[i]);
+  };
+}
+
+//Код собирает данные для статистики по задачам
+
+function createUserTaskStatistics(user, data, numbers, name) {
+  let k = [0, numbers[0]];
+  let l = [numbers[0]+1, numbers[0]+numbers[1]];
+  for(let i = 0; i < data.length; i++) {
+    if (data[i].userId == user) {
+      let task1Info = {
+        taskCompleded : 0,
+        taskFailed : 0,
+      };
+      for (let j = k[0]; j < k[1]; j++) {
+        if (data[j].title == name) {
+          data[j].completed ? task1Info.taskCompleded++ : task1Info.taskFailed++;
+        }
+      }
+      return task1Info;
+    } else {
+      let task2Info = {
+        taskCompleded : 0,
+        taskFailed : 0,
+      };
+      for (let j = l[0]; j < l[1]; j++) {
+        if (data[j].title == name) {
+          data[j].completed ? task2Info.taskCompleded++ : task2Info.taskFailed++;
+        }
+      }
+      return task2Info;
+    }
+  }
+}
+
+
+function createUserTasksStatistics() {
+  let usersInfo = [];
+  for (let user of usersId) {
+    let tasksInfo = [];
+    chartDataTasksNames.forEach(el => tasksInfo.push(createUserTaskStatistics(user, dataJson, chartDataNumberOfAllTasks, el)));
+    usersInfo.push(tasksInfo);
+  }
+
+  return usersInfo;
+}
+
+
+let chartDataHoleStat = createUserTasksStatistics();
 
 const ctxAllTasks = document.getElementById('сhart-all-tasks');
 
@@ -319,15 +326,23 @@ new Chart(ctxAllTasks, {
 });
 
 
-let user1ChartDataTasksStat = [
-  [2, 1, 2, 2, 3, 0],
-  [2, 1, 3, 1, 0, 2]
-];
 
-let user2ChartDataTasksStat = [
-  [0, 4, 3, 2, 2, 4],
-  [1, 0, 1, 1, 3, 0]
-];
+
+
+let user1ChartDataTasksStat = [[], []];
+let user2ChartDataTasksStat = [[], []];
+
+function fillArr(holeData, finalArr, qual, num) {
+    for (let i = 0; i < holeData[num].length; i++) {
+      finalArr.push(holeData[num][i][qual]);
+    }
+    return finalArr;
+}
+
+fillArr(chartDataHoleStat, user1ChartDataTasksStat[0], "taskCompleded", 0);
+fillArr(chartDataHoleStat, user1ChartDataTasksStat[1], "taskFailed", 0);
+fillArr(chartDataHoleStat, user2ChartDataTasksStat[0], "taskCompleded", 1);
+fillArr(chartDataHoleStat, user2ChartDataTasksStat[1], "taskFailed", 1);
 
 const data1 = {
   labels: abb,
@@ -354,4 +369,31 @@ const responsiveOptions = [
   }]
 ];
 
+const ctxLine = document.getElementById('сhart-line');
 
+new Chart(ctxLine, {
+  type: 'line',
+  data: {
+    labels: abb,
+    datasets: [{
+      label: "юрист: "+labels[0],
+      data: user1ChartDataTasksStat[0],
+      borderWidth: 3,
+      pointStyle: 'rect',
+      backgroundColor: [
+        'rgb(84, 154, 255)',
+      ],
+      
+      hoverOffset: 4,
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: {
+      title: {
+        display: false,
+        text: (ctx) => 'Point Style: ' + ctx.chart.data.datasets[0].pointStyle,
+      }
+    }
+  }
+});
